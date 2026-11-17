@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Acesso Restrito | José Carlos</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <header>
+    <div class="container navbar">
+      <a href="index.html" class="logo-link">
+        <img src="img/logo.svg" alt="Logo pessoal de José Carlos" width="36" height="36">
+        <span>José Carlos</span>
+      </a>
+      <nav aria-label="Menu principal">
+        <ul class="nav-links">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="quemsoueu.html">Quem sou eu</a></li>
+          <li><a href="portfolio.html">Portfólio</a></li>
+          <li>
+            <a href="login.html" class="btn-cadeado" aria-label="Entrar na área restrita">
+              <i data-lucide="lock" width="18" height="18"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="form-box">
+      <h1 style="margin-bottom: 20px;">Área Restrita</h1>
+      <form id="form-login">
+        <div class="campo-grupo">
+          <label for="usuario">Usuário</label>
+          <input type="text" id="usuario" name="usuario" required placeholder="Digite seu usuário">
+        </div>
+
+        <div class="campo-grupo">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" name="senha" required placeholder="Digite sua senha">
+        </div>
+
+        <button type="submit" class="btn-principal" style="width: 100%;">Entrar no Dashboard</button>
+        <p id="erro-login" class="mensagem-erro" role="alert"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Desenvolvido por José Carlos · 2026</p>
+    </div>
+  </footer>
+
+  <script src="js/login.js"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

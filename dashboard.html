@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Dashboard | Cadastrar Projeto</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <header>
+    <div class="container navbar">
+      <a href="index.html" class="logo-link">
+        <img src="img/logo.svg" alt="Logo pessoal de José Carlos" width="36" height="36">
+        <span>José Carlos</span>
+      </a>
+      <nav aria-label="Menu principal">
+        <ul class="nav-links">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="quemsoueu.html">Quem sou eu</a></li>
+          <li><a href="portfolio.html">Portfólio</a></li>
+          <li>
+            <a href="login.html" class="btn-cadeado" aria-label="Entrar na área restrita">
+              <i data-lucide="lock" width="18" height="18"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="form-box">
+      <h1 style="margin-bottom: 20px;">Cadastrar Novo Projeto</h1>
+      <form id="form-projeto">
+        <div class="campo-grupo">
+          <label for="titulo">Título do Projeto</label>
+          <input type="text" id="titulo" required placeholder="Ex: Sistema de Controle Escolar">
+        </div>
+
+        <div class="campo-grupo">
+          <label for="descricao">Descrição curta</label>
+          <textarea id="descricao" rows="3" required placeholder="Explique o que o projeto faz..."></textarea>
+        </div>
+
+        <div class="campo-grupo">
+          <label for="imagem">Caminho ou URL da Imagem</label>
+          <input type="text" id="imagem" value="img/logo.svg" required>
+        </div>
+
+        <div class="campo-grupo">
+          <label for="link">Link do Projeto (GitHub ou Vercel)</label>
+          <input type="url" id="link" required placeholder="https://seu-projeto.vercel.app">
+        </div>
+
+        <button type="submit" class="btn-principal" style="width: 100%;">Publicar no Portfólio</button>
+        <p id="status-cadastro" style="color: #4ade80; margin-top: 12px; font-size: 0.9rem;"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Desenvolvido por José Carlos · 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    document.getElementById('form-projeto').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const novoProjeto = {
+        titulo: document.getElementById('titulo').value.trim(),
+        descricao: document.getElementById('descricao').value.trim(),
+        imagem: document.getElementById('imagem').value.trim(),
+        link: document.getElementById('link').value.trim()
+      };
+
+      const listaAtual = JSON.parse(localStorage.getItem('meus_projetos')) || [];
+      listaAtual.push(novoProjeto);
+      localStorage.setItem('meus_projetos', JSON.stringify(listaAtual));
+
+      document.getElementById('status-cadastro').textContent = 'Projeto publicado! Redirecionando para o portfólio...';
+      setTimeout(() => {
+        window.location.href = 'portfolio.html';
+      }, 1000);
+    });
+  </script>
+</body>
+</html>

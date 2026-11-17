@@ -1,0 +1,490 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --cor-fundo: #070b14;
+  --cor-superficie: rgba(17, 25, 40, 0.78);
+  --cor-superficie-hover: rgba(26, 38, 60, 0.95);
+  --cor-primaria: #38bdf8;
+  --cor-secundaria: #818cf8;
+  --cor-texto: #f8fafc;
+  --cor-texto-suave: #94a3b8;
+  --cor-borda: rgba(148, 163, 184, 0.16);
+  --gradiente-destaque: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+  --largura-max: 1120px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  background-color: var(--cor-fundo);
+  background-image:
+    radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.12), transparent 35%),
+    radial-gradient(circle at 85% 30%, rgba(129, 140, 248, 0.10), transparent 40%);
+  color: var(--cor-texto);
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  width: 90%;
+  max-width: var(--largura-max);
+  margin: 0 auto;
+}
+
+/* =========================================
+   MENU COM EFEITO GLASSMORPHISM
+   ========================================= */
+header {
+  background-color: rgba(7, 11, 20, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--cor-borda);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 74px;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--cor-texto-suave);
+  transition: color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.ativo {
+  color: var(--cor-texto);
+}
+
+.btn-cadeado {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background-color: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  color: var(--cor-texto-suave) !important;
+  transition: all 0.25s ease;
+}
+
+.btn-cadeado:hover {
+  border-color: var(--cor-primaria);
+  color: var(--cor-primaria) !important;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
+}
+
+/* =========================================
+   HERO DA HOME
+   ========================================= */
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 56px;
+  padding: 72px 0 64px;
+}
+
+.hero-foto-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.hero-foto-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: var(--gradiente-destaque);
+  z-index: -1;
+  opacity: 0.75;
+  filter: blur(8px);
+}
+
+.hero-foto {
+  width: 240px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--cor-fundo);
+  background-color: #111928;
+}
+
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  color: var(--cor-primaria);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.hero-conteudo h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 14px;
+  background: linear-gradient(to right, #ffffff, #cbd5e1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitulo {
+  font-size: 1.15rem;
+  color: var(--cor-texto-suave);
+  max-width: 600px;
+  margin-bottom: 24px;
+}
+
+.habilidades-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  margin-bottom: 32px;
+}
+
+.habilidades-lista li {
+  background-color: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  padding: 7px 15px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.habilidades-lista li:hover {
+  transform: translateY(-2px);
+  border-color: var(--cor-primaria);
+}
+
+.hero-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.btn-principal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--gradiente-destaque);
+  color: #070b14;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 13px 26px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-principal:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(56, 189, 248, 0.35);
+}
+
+.btn-secundario {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  color: var(--cor-texto);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 13px 24px;
+  border-radius: 10px;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.btn-secundario:hover {
+  border-color: var(--cor-primaria);
+  background-color: var(--cor-superficie-hover);
+}
+
+/* =========================================
+   5 SECTIONS DE ATUALIDADES EM CARDS MODERNOS
+   ========================================= */
+.atualidades-header {
+  margin-top: 24px;
+  margin-bottom: 28px;
+}
+
+.atualidades-header span {
+  color: var(--cor-primaria);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.atualidades-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 22px;
+  margin-bottom: 48px;
+}
+
+.secao-bloco {
+  background-color: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: 16px;
+  padding: 28px;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.secao-bloco:hover {
+  transform: translateY(-4px);
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+
+.tag-tema {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--cor-secundaria);
+  background: rgba(129, 140, 248, 0.12);
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+}
+
+.secao-bloco h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 12px;
+  color: var(--cor-texto);
+}
+
+.secao-bloco p {
+  color: var(--cor-texto-suave);
+  font-size: 0.95rem;
+}
+
+/* =========================================
+   CARDS DE PROJETOS E FORMULÁRIOS
+   ========================================= */
+.grid-projetos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.card-projeto {
+  background-color: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s, border-color 0.25s;
+}
+
+.card-projeto:hover {
+  transform: translateY(-4px);
+  border-color: var(--cor-primaria);
+}
+
+.card-projeto img {
+  width: 100%;
+  height: 185px;
+  object-fit: cover;
+  background-color: #111928;
+}
+
+.card-corpo {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.form-box {
+  max-width: 460px;
+  margin: 56px auto;
+  background-color: var(--cor-superficie);
+  backdrop-filter: blur(12px);
+  padding: 36px;
+  border-radius: 18px;
+  border: 1px solid var(--cor-borda);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.campo-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.campo-grupo label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+}
+
+.campo-grupo input,
+.campo-grupo textarea {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--cor-borda);
+  background-color: rgba(7, 11, 20, 0.8);
+  color: var(--cor-texto);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+}
+
+.campo-grupo input:focus,
+.campo-grupo textarea:focus {
+  outline: none;
+  border-color: var(--cor-primaria);
+}
+
+.mensagem-erro {
+  color: #f87171;
+  font-size: 0.88rem;
+  margin-top: 10px;
+}
+
+/* =========================================
+   MODAL DE LOGIN AO ENTRAR
+   ========================================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(4, 7, 15, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 20px;
+}
+
+.modal-overlay.oculto {
+  display: none;
+}
+
+.modal-card {
+  background-color: #111928;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 18px;
+  padding: 32px;
+  width: 100%;
+  max-width: 410px;
+  position: relative;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+}
+
+.btn-fechar-modal {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  color: var(--cor-texto-suave);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-fechar-modal:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--cor-texto);
+}
+
+/* =========================================
+   RODAPÉ E RESPONSIVIDADE
+   ========================================= */
+footer {
+  border-top: 1px solid var(--cor-borda);
+  padding: 36px 0;
+  margin-top: 64px;
+  text-align: center;
+  color: var(--cor-texto-suave);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 48px 0;
+    gap: 32px;
+  }
+
+  .hero-conteudo h1 {
+    font-size: 2.2rem;
+  }
+
+  .habilidades-lista,
+  .hero-acoes {
+    justify-content: center;
+  }
+
+  .nav-links {
+    gap: 16px;
+  }
+}

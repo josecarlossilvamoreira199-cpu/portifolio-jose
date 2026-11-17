@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfólio de Projetos | José Carlos</title>
+  <meta name="description" content="Explore os sites, jogos educativos e sistemas web desenvolvidos por José Carlos utilizando HTML, CSS, JavaScript e banco de dados.">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <header>
+    <div class="container navbar">
+      <a href="index.html" class="logo-link">
+        <img src="img/logo.svg" alt="Logo pessoal de José Carlos" width="36" height="36">
+        <span>José Carlos</span>
+      </a>
+      <nav aria-label="Menu principal">
+        <ul class="nav-links">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="quemsoueu.html">Quem sou eu</a></li>
+          <li><a href="portfolio.html">Portfólio</a></li>
+          <li>
+            <a href="login.html" class="btn-cadeado" aria-label="Entrar na área restrita">
+              <i data-lucide="lock" width="18" height="18"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="secao-bloco" style="border-top: none;">
+      <h1>Meus Projetos</h1>
+      <p style="color: var(--cor-texto-suave);">Trabalhos desenvolvidos durante as aulas de programação e projetos pessoais.</p>
+
+      <div class="grid-projetos" id="lista-projetos">
+        <!-- Projeto Fixo 1 -->
+        <article class="card-projeto">
+          <img src="img/logo.svg" alt="Capa do projeto Jogo Pac-Man Escolar">
+          <div class="card-corpo">
+            <h2>Jogo Pac-Man Escolar</h2>
+            <p>Jogo web interativo tematizado com personagens selecionáveis, desenvolvido com HTML, CSS e JavaScript.</p>
+            <a href="#" class="btn-principal" style="text-align: center; margin-top: auto;">Acessar projeto</a>
+          </div>
+        </article>
+
+        <!-- Projeto Fixo 2 -->
+        <article class="card-projeto">
+          <img src="img/logo.svg" alt="Capa do projeto Carne de Sol de Carlos Chagas">
+          <div class="card-corpo">
+            <h2>Projeto Carne de Sol</h2>
+            <p>Landing page promocional e painel de gerenciamento para divulgação gastronômica regional.</p>
+            <a href="#" class="btn-principal" style="text-align: center; margin-top: auto;">Acessar projeto</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Desenvolvido por José Carlos · 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    // Carrega projetos salvos pelo Dashboard (simulação de banco de dados no navegador)
+    const projetosSalvos = JSON.parse(localStorage.getItem('meus_projetos')) || [];
+    const container = document.getElementById('lista-projetos');
+
+    projetosSalvos.forEach(proj => {
+      const article = document.createElement('article');
+      article.className = 'card-projeto';
+      article.innerHTML = `
+        <img src="${proj.imagem}" alt="Imagem do projeto ${proj.titulo}">
+        <div class="card-corpo">
+          <h2>${proj.titulo}</h2>
+          <p>${proj.descricao}</p>
+          <a href="${proj.link}" target="_blank" rel="noopener" class="btn-principal" style="text-align: center; margin-top: auto;">Acessar projeto</a>
+        </div>
+      `;
+      container.appendChild(article);
+    });
+  </script>
+</body>
+</html>
