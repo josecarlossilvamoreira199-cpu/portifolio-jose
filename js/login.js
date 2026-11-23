@@ -26,7 +26,8 @@ form.addEventListener("submit", async (evento) => {
   const { data, error } = await window.db.auth.signInWithPassword({ email, password: senha });
 
   if (error) {
-    mensagem.textContent = "E-mail ou senha incorretos.";
+    console.error(error);
+    mensagem.textContent = "Erro: " + error.message;
     resetarBotao();
     return;
   }
