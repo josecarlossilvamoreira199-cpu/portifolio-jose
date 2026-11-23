@@ -124,7 +124,7 @@
       if (!titulo) { mensagem.textContent = "Informe o título."; return; }
 
       botao.disabled = true;
-      const { error } = await db.from("projetos").insert({
+     const { error } = await db.functions.invoke("smooth-responder", {
         titulo,
         descricao: descricao || null,
         link: link || null
