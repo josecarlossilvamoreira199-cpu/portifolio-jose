@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seu Nome | Portfólio</title>
+  <meta name="description" content="Portfólio pessoal de Seu Nome, estudante e desenvolvedor web.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <nav aria-label="Navegação principal">
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="quemsoueu.html">Quem sou eu</a></li>
+        <li><a href="portfolio.html">Portfólio</a></li>
+      </ul>
+      <a id="link-restrito" href="login.html" aria-label="Área restrita: entrar no painel">
+        <span aria-hidden="true">🔒</span>
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section aria-labelledby="titulo-boas-vindas">
+      <h1 id="titulo-boas-vindas">Olá, eu sou Seu Nome</h1>
+      <p>Estudante do 3º ano do ensino médio apaixonado por desenvolvimento web.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Seu Nome. Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script>
+    // Se já existe sessão, o cadeado leva direto ao painel
+    window.db.auth.getSession().then(({ data }) => {
+      if (data.session) {
+        document.getElementById("link-restrito").href = "dashboard.html";
+      }
+    });
+  </script>
+</body>
+</html>

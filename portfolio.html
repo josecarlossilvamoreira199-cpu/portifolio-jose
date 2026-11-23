@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfólio | Seu Nome</title>
+  <meta name="description" content="Projetos de Seu Nome, estudante e desenvolvedor web.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <nav aria-label="Navegação principal">
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="quemsoueu.html">Quem sou eu</a></li>
+        <li><a href="portfolio.html">Portfólio</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section aria-labelledby="titulo-projetos">
+      <h1 id="titulo-projetos">Meus projetos</h1>
+      <ul id="lista-projetos"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Seu Nome.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script>
+    // Leitura pública: a política "projetos_select_publico" permite isso
+    (async () => {
+      const lista = document.getElementById("lista-projetos");
+      const { data, error } = await window.db
+        .from("projetos")
+        .select("titulo, descricao, link")
+        .order("criado_em", { ascending: false });
+
+      if (error || !data) return;
+      data.forEach((p) => {
+        const li = document.createElement("li");
+        const t = document.createElement("strong");
+        t.textContent = p.titulo;
+        li.appendChild(t);
+        if (p.descricao) {
+          const d = document.createElement("p");
+          d.textContent = p.descricao;
+          li.appendChild(d);
+        }
+        if (p.link) {
+          const a = document.createElement("a");
+          a.href = p.link;
+          a.textContent = "Ver projeto";
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          li.appendChild(a);
+        }
+        lista.appendChild(li);
+      });
+    })();
+  </script>
+</body>
+</html>

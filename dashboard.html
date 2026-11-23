@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel | Seu Nome</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <nav aria-label="Navegação do painel">
+      <a href="index.html">Ver site</a>
+      <span id="saudacao"></span>
+      <button type="button" id="btn-sair">Sair</button>
+    </nav>
+  </header>
+
+  <main>
+    <section aria-labelledby="titulo-novo">
+      <h1 id="titulo-novo">Cadastrar novo projeto</h1>
+      <form id="form-projeto">
+        <label for="titulo">Título</label>
+        <input type="text" id="titulo" maxlength="120" required>
+
+        <label for="descricao">Descrição</label>
+        <textarea id="descricao" rows="4" maxlength="1000"></textarea>
+
+        <label for="link">Link do projeto (opcional)</label>
+        <input type="url" id="link" placeholder="https://...">
+
+        <button type="submit" id="btn-salvar">Salvar projeto</button>
+        <p id="mensagem" role="status"></p>
+      </form>
+    </section>
+
+    <section aria-labelledby="titulo-lista">
+      <h2 id="titulo-lista">Meus projetos</h2>
+      <ul id="lista-projetos"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Seu Nome.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script>
+    const db = window.db;
+    const lista = document.getElementById("lista-projetos");
+    const mensagem = document.getElementById("mensagem");
+    let usuarioId = null;
+
+    // ---------- Proteção da página ----------
+    async function iniciar() {
+      const { data } = await db.auth.getSession();
+      if (!data.session) {
+        window.location.href = "login.html";
+        return;
+      }
+      usuarioId = data.session.user.id;
+
+      const { data: perfil } = await db
+        .from("usuarios").select("nome").eq("id", usuarioId).maybeSingle();
+
+      if (!perfil) {
+        await db.auth.signOut();
+        window.location.href = "login.html";
+        return;
+      }
+      document.getElementById("saudacao").textContent = "Olá, " + perfil.nome;
+      carregarProjetos();
+    }
+
+    // ---------- Listar ----------
+    async function carregarProjetos() {
+      const { data, error } = await db
+        .from("projetos")
+        .select("id, titulo, descricao, link, criado_em")
+        .eq("usuario_id", usuarioId)
+        .order("criado_em", { ascending: false });
+
+      lista.replaceChildren();
+      if (error) { mensagem.textContent = "Erro ao carregar projetos."; return; }
+      if (data.length === 0) {
+        const vazio = document.createElement("li");
+        vazio.textContent = "Nenhum projeto cadastrado ainda.";
+        lista.appendChild(vazio);
+        return;
+      }
+
+      data.forEach((p) => {
+        const item = document.createElement("li");
+        const titulo = document.createElement("strong");
+        titulo.textContent = p.titulo;        // textContent evita injeção de HTML
+        item.appendChild(titulo);
+
+        if (p.descricao) {
+          const desc = document.createElement("p");
+          desc.textContent = p.descricao;
+          item.appendChild(desc);
+        }
+        if (p.link) {
+          const a = document.createElement("a");
+          a.href = p.link;
+          a.textContent = "Abrir projeto";
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          item.appendChild(a);
+        }
+        lista.appendChild(item);
+      });
+    }
+
+    // ---------- Cadastrar ----------
+    document.getElementById("form-projeto").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const botao = document.getElementById("btn-salvar");
+      const titulo = document.getElementById("titulo").value.trim();
+      const descricao = document.getElementById("descricao").value.trim();
+      const link = document.getElementById("link").value.trim();
+
+      if (!titulo) { mensagem.textContent = "Informe o título."; return; }
+
+      botao.disabled = true;
+      const { error } = await db.from("projetos").insert({
+        titulo,
+        descricao: descricao || null,
+        link: link || null
+        // usuario_id é preenchido sozinho pelo banco (default auth.uid())
+      });
+      botao.disabled = false;
+
+      if (error) {
+        mensagem.textContent = "Não foi possível salvar o projeto.";
+        return;
+      }
+      mensagem.textContent = "Projeto salvo!";
+      e.target.reset();
+      carregarProjetos();
+    });
+
+    // ---------- Sair ----------
+    document.getElementById("btn-sair").addEventListener("click", async () => {
+      await db.auth.signOut();
+      window.location.href = "login.html";
+    });
+
+    iniciar();
+  </script>
+</body>
+</html>
