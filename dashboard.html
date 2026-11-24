@@ -38,6 +38,24 @@
       <h2 id="titulo-lista">Meus projetos</h2>
       <ul id="lista-projetos"></ul>
     </section>
+
+    <!-- Só aparece para administradores -->
+    <section id="secao-admin" aria-labelledby="titulo-admin" hidden>
+      <h2 id="titulo-admin">Cadastrar novo usuário</h2>
+      <form id="form-usuario">
+        <label for="novo-nome">Nome</label>
+        <input type="text" id="novo-nome" maxlength="80" required autocomplete="off">
+
+        <label for="novo-email">E-mail</label>
+        <input type="email" id="novo-email" required autocomplete="off">
+
+        <label for="nova-senha">Senha (mínimo 8 caracteres)</label>
+        <input type="password" id="nova-senha" minlength="8" required autocomplete="new-password">
+
+        <button type="submit" id="btn-criar-usuario">Criar usuário</button>
+        <p id="mensagem-usuario" role="status"></p>
+      </form>
+    </section>
   </main>
 
   <footer>
@@ -62,7 +80,7 @@
       usuarioId = data.session.user.id;
 
       const { data: perfil } = await db
-        .from("usuarios").select("nome").eq("id", usuarioId).maybeSingle();
+        .from("usuarios").select("nome, papel").eq("id", usuarioId).maybeSingle();
 
       if (!perfil) {
         await db.auth.signOut();
@@ -70,10 +88,16 @@
         return;
       }
       document.getElementById("saudacao").textContent = "Olá, " + perfil.nome;
+
+      // Só administradores veem o formulário de novos usuários
+      // (a segurança de verdade está na Edge Function; isto é só visual)
+      if (perfil.papel === "admin") {
+        document.getElementById("secao-admin").hidden = false;
+      }
       carregarProjetos();
     }
 
-    // ---------- Listar ----------
+    // ---------- Listar projetos ----------
     async function carregarProjetos() {
       const { data, error } = await db
         .from("projetos")
@@ -113,7 +137,7 @@
       });
     }
 
-    // ---------- Cadastrar ----------
+    // ---------- Cadastrar projeto ----------
     document.getElementById("form-projeto").addEventListener("submit", async (e) => {
       e.preventDefault();
       const botao = document.getElementById("btn-salvar");
@@ -124,7 +148,7 @@
       if (!titulo) { mensagem.textContent = "Informe o título."; return; }
 
       botao.disabled = true;
-     const { error } = await db.functions.invoke("smooth-responder", {
+      const { error } = await db.from("projetos").insert({
         titulo,
         descricao: descricao || null,
         link: link || null
@@ -139,6 +163,45 @@
       mensagem.textContent = "Projeto salvo!";
       e.target.reset();
       carregarProjetos();
+    });
+
+    // ---------- Cadastrar usuário (chama a Edge Function) ----------
+    document.getElementById("form-usuario").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const aviso = document.getElementById("mensagem-usuario");
+      const botao = document.getElementById("btn-criar-usuario");
+      const nome = document.getElementById("novo-nome").value.trim();
+      const email = document.getElementById("novo-email").value.trim();
+      const senha = document.getElementById("nova-senha").value;
+
+      aviso.textContent = "";
+      if (!nome || !email || senha.length < 8) {
+        aviso.textContent = "Preencha tudo. A senha precisa ter pelo menos 8 caracteres.";
+        return;
+      }
+
+      botao.disabled = true;
+      botao.textContent = "Criando...";
+
+      // O site manda o token da sua sessão; a função confere se você é admin
+      const { error } = await db.functions.invoke("smooth-responder", {
+        body: { nome, email, senha }
+      });
+
+      botao.disabled = false;
+      botao.textContent = "Criar usuário";
+
+      if (error) {
+        let texto = "Não foi possível criar o usuário.";
+        try {
+          const corpo = await error.context.json();   // mensagem enviada pela função
+          if (corpo && corpo.erro) texto = corpo.erro;
+        } catch (_) {}
+        aviso.textContent = texto;
+        return;
+      }
+      aviso.textContent = "Usuário criado! Ele já pode entrar em login.html.";
+      e.target.reset();
     });
 
     // ---------- Sair ----------
