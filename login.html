@@ -3,39 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Entrar | Seu Nome</title>
   <meta name="robots" content="noindex">
+  <title>Acesso Restrito | José Carlos</title>
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
+
   <header>
-    <nav aria-label="Navegação principal">
-      <a href="index.html">Voltar ao início</a>
-    </nav>
+    <div class="container navbar">
+      <a href="index.html" class="logo-link">
+        <span class="logo-badge">&lt;/&gt;</span>
+        <span>José Carlos</span>
+      </a>
+      <nav aria-label="Menu principal">
+        <ul class="nav-links">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="quemsoueu.html">Quem sou eu</a></li>
+          <li><a href="portfolio.html">Portfólio</a></li>
+          <li>
+            <a href="login.html" class="btn-cadeado" aria-label="Entrar na área restrita">
+              <i data-lucide="lock" width="18" height="18"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <section aria-labelledby="titulo-login">
-      <h1 id="titulo-login">Entrar</h1>
-      <form id="form-login" novalidate>
-        <label for="email">E-mail</label>
-        <input type="email" id="email" required autocomplete="email">
+  <main class="container">
+    <section class="form-box">
+      <span class="tag-tema">Painel Administrativo</span>
+      <h1 style="font-size: 1.75rem; margin-bottom: 8px;">Entrar no Sistema</h1>
+      <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 24px;">
+        Acesse com seu e-mail e senha cadastrados para gerenciar os projetos do portfólio.
+      </p>
 
-        <label for="senha">Senha</label>
-        <input type="password" id="senha" required autocomplete="current-password">
+      <form id="form-login">
+        <div class="campo-grupo">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" required placeholder="josecarlossilvamoreira199@gmail.com">
+        </div>
 
-        <button type="submit" id="btn-entrar">Entrar</button>
-        <p id="mensagem" role="alert"></p>
+        <div class="campo-grupo">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" name="senha" required placeholder="••••••••">
+        </div>
+
+        <button type="submit" class="btn-principal" style="width: 100%;">
+          <i data-lucide="log-in" width="18" height="18"></i>
+          <span>Entrar no Dashboard</span>
+        </button>
+        <p id="erro-login" class="mensagem-erro" role="alert"></p>
       </form>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2026 Seu Nome.</p>
+    <div class="container footer-conteudo">
+      <p>Desenvolvido por <strong>José Carlos</strong> · 2026</p>
+      <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;">Área Protegida · Supabase Auth</p>
+    </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/config.js"></script>
   <script src="js/login.js"></script>
+  <script>lucide.createIcons();</script>
 </body>
 </html>
