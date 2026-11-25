@@ -3,44 +3,140 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Seu Nome | Portfólio</title>
-  <meta name="description" content="Portfólio pessoal de Seu Nome, estudante e desenvolvedor web.">
+  <title>José Carlos | Desenvolvedor Web &amp; Portfólio</title>
+  <meta name="description" content="Portfólio profissional de José Carlos. Desenvolvimento web full-stack, interfaces responsivas, banco de dados Supabase e artigos sobre tecnologia.">
+  
+  <meta property="og:title" content="José Carlos | Desenvolvedor Web & Portfólio">
+  <meta property="og:description" content="Conheça meus projetos web, habilidades em programação e artigos sobre tecnologia.">
+  <meta property="og:type" content="website">
+
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
+
   <header>
-    <nav aria-label="Navegação principal">
-      <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="quemsoueu.html">Quem sou eu</a></li>
-        <li><a href="portfolio.html">Portfólio</a></li>
-      </ul>
-      <a id="link-restrito" href="login.html" aria-label="Área restrita: entrar no painel">
-        <span aria-hidden="true">🔒</span>
+    <div class="container navbar">
+      <a href="index.html" class="logo-link">
+        <span class="logo-badge">&lt;/&gt;</span>
+        <span>José Carlos</span>
       </a>
-    </nav>
+
+      <nav aria-label="Menu principal">
+        <ul class="nav-links">
+          <li><a href="index.html" class="ativo">Início</a></li>
+          <li><a href="quemsoueu.html">Quem sou eu</a></li>
+          <li><a href="portfolio.html">Portfólio</a></li>
+          <li>
+            <a href="login.html" class="btn-cadeado" aria-label="Entrar na área restrita">
+              <i data-lucide="lock" width="18" height="18"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <section aria-labelledby="titulo-boas-vindas">
-      <h1 id="titulo-boas-vindas">Olá, eu sou Seu Nome</h1>
-      <p>Estudante do 3º ano do ensino médio apaixonado por desenvolvimento web.</p>
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-foto-wrapper">
+        <img 
+          src="img/foto.webp" 
+          onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Jose+Carlos&background=0b1120&color=38bdf8&size=260&bold=true';" 
+          alt="Foto de perfil de José Carlos" 
+          class="hero-foto" 
+          width="215" 
+          height="215">
+      </div>
+
+      <div class="hero-conteudo">
+        <div class="badge-status">
+          <span class="ponto-online"></span>
+          <span>Disponível para projetos · Dev Web &amp; EMTI</span>
+        </div>
+
+        <h1>Olá, eu sou <span class="texto-gradiente">José Carlos</span></h1>
+        <p class="hero-subtitulo">
+          Desenvolvedor web apaixonado por construir interfaces modernas, aplicações rápidas e sistemas integrados a bancos de dados na nuvem.
+        </p>
+        
+        <ul class="habilidades-lista">
+          <li>HTML5 Semântico</li>
+          <li>CSS3 Moderno</li>
+          <li>JavaScript ES6+</li>
+          <li>Supabase / SQL</li>
+          <li>SEO &amp; Performance</li>
+        </ul>
+
+        <div class="hero-acoes">
+          <a href="portfolio.html" class="btn-principal">
+            <span>Explorar Portfólio</span>
+            <i data-lucide="arrow-right" width="18" height="18"></i>
+          </a>
+          <a href="quemsoueu.html" class="btn-secundario">
+            <i data-lucide="user" width="18" height="18"></i>
+            <span>Sobre minha trajetória</span>
+          </a>
+        </div>
+      </div>
     </section>
+
+    <!-- 5 SECTIONS DE ATUALIDADES -->
+    <div class="atualidades-header">
+      <span>// Radar Tecnológico &amp; Artigos</span>
+    </div>
+
+    <div class="atualidades-grid">
+      <section class="secao-bloco">
+        <span class="tag-tema">Inteligência Artificial</span>
+        <h2>Inteligência artificial no dia a dia dos estudantes</h2>
+        <p>
+          A inteligência artificial transformou a rotina escolar ao oferecer suporte rápido para pesquisas, revisão de textos e compreensão de códigos complexos. Quando utilizada como ferramenta de apoio, ela acelera o aprendizado e permite testar diferentes soluções para um mesmo problema de programação. No entanto, o verdadeiro diferencial está no senso crítico do estudante, que precisa validar as informações, entender a lógica por trás das respostas e adaptar cada resultado às necessidades reais do seu projeto.
+        </p>
+      </section>
+
+      <section class="secao-bloco">
+        <span class="tag-tema">Cibersegurança</span>
+        <h2>Segurança digital e prevenção contra golpes no WhatsApp</h2>
+        <p>
+          Com o aumento das transações digitais e da comunicação instantânea, proteger contas pessoais tornou-se indispensável. Golpes envolvendo clonagem de perfis, links falsos de promoções e pedidos urgentes de transferência financeira afetam milhares de usuários todos os dias. Ativar a confirmação em duas etapas, desconfiar de mensagens alarmistas e nunca compartilhar códigos recebidos por SMS são atitudes simples que bloqueiam a maioria das invasões e mantêm os dados pessoais em segurança na internet.
+        </p>
+      </section>
+
+      <section class="secao-bloco">
+        <span class="tag-tema">Inovação Regional</span>
+        <h2>Tecnologia e inovação no agronegócio do Vale do Mucuri</h2>
+        <p>
+          O avanço da conectividade rural está modernizando as propriedades agrícolas e pecuárias do Vale do Mucuri. Hoje, produtores utilizam aplicativos de gestão financeira, sensores climáticos, drones para monitoramento de pastagens e softwares de controle de rebanho para tomar decisões mais precisas. Essa integração entre campo e tecnologia reduz desperdícios, aumenta a produtividade sustentável e abre novas oportunidades de trabalho para jovens técnicos que dominam ferramentas digitais e análise de dados.
+        </p>
+      </section>
+
+      <section class="secao-bloco">
+        <span class="tag-tema">Mercado &amp; Futuro</span>
+        <h2>Carreiras de tecnologia em alta para jovens desenvolvedores</h2>
+        <p>
+          O setor de tecnologia continua expandindo a demanda por profissionais capazes de resolver problemas reais por meio de software. Áreas como desenvolvimento front-end, engenharia de dados, segurança da informação e automação de processos oferecem excelente crescimento para quem começa cedo construindo projetos práticos. Mais do que decorar linguagens, as empresas valorizam quem domina fundamentos sólidos da web, sabe estruturar aplicações acessíveis e consegue aprender novas ferramentas de forma contínua.
+        </p>
+      </section>
+
+      <section class="secao-bloco">
+        <span class="tag-tema">Meio Ambiente</span>
+        <h2>Sustentabilidade e descarte correto de lixo eletrônico</h2>
+        <p>
+          A troca constante de smartphones, computadores e periféricos gera toneladas de resíduos eletrônicos que contêm metais pesados prejudiciais ao solo e à água. Descartar baterias, placas e cabos no lixo comum representa um grave risco ambiental e desperdiça materiais valiosos que poderiam ser reaproveitados. Encaminhar equipamentos antigos para pontos de coleta especializados ou centros de recondicionamento garante a reciclagem segura dos componentes e prolonga a vida útil da tecnologia.
+        </p>
+      </section>
+    </div>
   </main>
 
   <footer>
-    <p>&copy; 2026 Seu Nome. Todos os direitos reservados.</p>
+    <div class="container footer-conteudo">
+      <p>Desenvolvido por <strong>José Carlos</strong> · 2026</p>
+      <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;">HTML5 · CSS3 · JavaScript · Supabase</p>
+    </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/config.js"></script>
-  <script>
-    // Se já existe sessão, o cadeado leva direto ao painel
-    window.db.auth.getSession().then(({ data }) => {
-      if (data.session) {
-        document.getElementById("link-restrito").href = "dashboard.html";
-      }
-    });
-  </script>
+  <script>lucide.createIcons();</script>
 </body>
 </html>
