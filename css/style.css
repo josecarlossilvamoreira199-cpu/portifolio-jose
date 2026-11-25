@@ -588,3 +588,62 @@ footer {
     padding: 28px 22px;
   }
 }
+
+
+
+/* ==========================================================================
+   BOTÕES DE REDES SOCIAIS (WHATSAPP, INSTAGRAM E LINKEDIN)
+   ========================================================================== */
+.redes-sociais {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.btn-social {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  transition: var(--transition);
+}
+
+.btn-social:hover {
+  transform: translateY(-2px);
+}
+
+/* Cores exclusivas ao passar o mouse */
+.btn-social.whatsapp:hover {
+  border-color: #25d366;
+  color: #25d366;
+  background: rgba(37, 211, 102, 0.1);
+  box-shadow: 0 0 20px rgba(37, 211, 102, 0.25);
+}
+
+.btn-social.instagram:hover {
+  border-color: #e1306c;
+  color: #f472b6;
+  background: rgba(225, 48, 108, 0.12);
+  box-shadow: 0 0 20px rgba(225, 48, 108, 0.25);
+}
+
+.btn-social.linkedin:hover {
+  border-color: #0a66c2;
+  color: #38bdf8;
+  background: rgba(10, 102, 194, 0.15);
+  box-shadow: 0 0 20px rgba(10, 102, 194, 0.28);
+}
+
+@media (max-width: 768px) {
+  .redes-sociais {
+    justify-content: center;
+  }
+}
