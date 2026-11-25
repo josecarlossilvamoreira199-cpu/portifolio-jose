@@ -1,55 +1,35 @@
-const form = document.getElementById("form-login");
-const botao = document.getElementById("btn-entrar");
-const mensagem = document.getElementById("mensagem");
+const formLogin = document.getElementById('form-login');
+const erroLogin = document.getElementById('erro-login');
 
-// Se já tem sessão ativa, não precisa logar de novo
-window.db.auth.getSession().then(({ data }) => {
-  if (data.session) window.location.href = "dashboard.html";
-});
+if (formLogin) {
+  formLogin.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-form.addEventListener("submit", async (evento) => {
-  evento.preventDefault();
-  mensagem.textContent = "";
+    if (erroLogin) {
+      erroLogin.style.color = '#38bdf8';
+      erroLogin.textContent = 'A verificar credenciais...';
+    }
 
-  const email = document.getElementById("email").value.trim();
-  const senha = document.getElementById("senha").value;
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('senha').value.trim();
 
-  if (!email || !senha) {
-    mensagem.textContent = "Preencha e-mail e senha.";
-    return;
-  }
+    // Tenta usar supabaseClient ou supabase (conforme definido no seu config.js)
+    const cliente = typeof supabaseClient !== 'undefined' ? supabaseClient : supabase;
 
-  botao.disabled = true;
-  botao.textContent = "Entrando...";
+    const { data, error } = await cliente.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
 
-  // 1) Autentica (o Supabase confere a senha com segurança no servidor)
-  const { data, error } = await window.db.auth.signInWithPassword({ email, password: senha });
-
-  if (error) {
-    console.error(error);
-    mensagem.textContent = "Erro: " + error.message;
-    resetarBotao();
-    return;
-  }
-
-  // 2) Consulta a tabela usuarios: só entra quem tem perfil cadastrado
-  const { data: perfil, error: erroPerfil } = await window.db
-    .from("usuarios")
-    .select("nome")
-    .eq("id", data.user.id)
-    .maybeSingle();
-
-  if (erroPerfil || !perfil) {
-    await window.db.auth.signOut();
-    mensagem.textContent = "Usuário sem permissão de acesso.";
-    resetarBotao();
-    return;
-  }
-
-  window.location.href = "dashboard.html";
-});
-
-function resetarBotao() {
-  botao.disabled = false;
-  botao.textContent = "Entrar";
+    if (error) {
+      if (erroLogin) {
+        erroLogin.style.color = '#f87171';
+        erroLogin.textContent = 'Erro: ' + error.message;
+      } else {
+        alert('Erro: ' + error.message);
+      }
+    } else {
+      window.location.href = 'dashboard.html';
+    }
+  });
 }
